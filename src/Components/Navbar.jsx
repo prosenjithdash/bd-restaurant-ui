@@ -4,7 +4,7 @@ const Navbar = () => {
 
     const NavLinks = <>
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/about'>About</NavLink></li>
+        <li><NavLink to='/menu'>Menu</NavLink></li>
     </>
     return (
         <div className=" ">
@@ -26,7 +26,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button</a>
+                    <a className="btn">Get Started</a>
                 </div>
             </div>
        </div>
