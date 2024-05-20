@@ -4,7 +4,7 @@ const Featured = () => {
     return (
         // https://i.ibb.co/M86Hctt/photo-1574966739987-65e38db0f7ce-q-80-w-1000-auto-format-fit-crop-ixlib-rb-4-0.jpg
         // 
-        <div className="text-white bg-fixed pt-8 my-20   bg-[url('https://i.ibb.co/n1pNxSF/images-q-tbn-ANd9-Gc-RVPzs-YEu8-Xh-Ql7-ERWW4w-F1-c-O40-db44r-FDM0ecmaelg-s.jpg')]"  >
+        <div className="max-w-[1920px] mx-auto text-white bg-fixed pt-8 my-20   bg-[url('https://i.ibb.co/n1pNxSF/images-q-tbn-ANd9-Gc-RVPzs-YEu8-Xh-Ql7-ERWW4w-F1-c-O40-db44r-FDM0ecmaelg-s.jpg')]"  >
             <SectionTitle subHeading={'---Check it out---'} heading={'FROM OUR MENU'} />
             
             

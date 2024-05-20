@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import SectionTitle from '../../Components/SectionTitle';
 const Category = () => {
     return (
-        <section>
+        <section className=' max-w-[1280px] mx-auto'>
             <SectionTitle
                 subHeading={'---From 11:00am to 10:00pm---'}
                 heading={'ORDER ONLINE'}

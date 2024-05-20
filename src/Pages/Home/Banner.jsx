@@ -7,7 +7,7 @@ const Banner = () => {
     return (
 
         // Step 3: Carousel tag copy and paste hare =>
-        <Carousel className="text-center">
+        <Carousel className="text-center max-w-[1920px] mx-auto">
             <div>
                 <img src="https://i.ibb.co/31FqSHk/Restaurant-Food-Web-Banner-Design-1180x664.jpg" />
                 {/* <p className="legend">Legend 1</p> */}

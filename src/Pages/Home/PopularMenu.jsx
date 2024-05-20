@@ -18,7 +18,7 @@ const PopularMenu = () => {
     }, [])
     
     return (
-        <section className="mb-[50px]">
+        <section className="mb-[50px]  max-w-[1280px] mx-auto">
             <SectionTitle subHeading={'---Check it out---'} heading={'FROM OUR MENU'} />
 
             <div className="grid grid-cols-1 md:grid-col-1 md:grid-cols-2 gap-[24px]">

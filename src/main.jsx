@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     {/* Step - 03 : Helmet provider */}
     {/* Step - 04 -> Menu.jsx : Helmet provider */}
     <HelmetProvider>
-      <div className='max-w-screen-xl mx-auto'>
+      <div className=''>
         <RouterProvider router={Routes} />
       </div>
     </HelmetProvider>
