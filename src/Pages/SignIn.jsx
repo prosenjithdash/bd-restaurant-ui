@@ -1,37 +1,86 @@
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+
+
 // import lp from'../../src/assets/lp.png'
 const SignIn = () => {
+
+    const captchaRef = useRef(null);
+    const [disabled, setDisabled]  = useState(true)
+
+    useEffect(() => {
+        loadCaptchaEnginge(6); 
+
+    },[])
+
+    const handleSignIn = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        console.log(email,password)
+
+    }
+
+    const handleValidateCaptcha = () => {
+        const userCaptchaValue = captchaRef.current.value;
+        console.log(userCaptchaValue)
+        if (validateCaptcha(userCaptchaValue)) {
+            setDisabled(false)
+            alert('Captcha is right.')
+        }
+        else {
+            setDisabled(true)
+            alert('Captcha is not right.Try again...')
+        }
+    }
     return (
-        <div className="pb-[110px] pt-[150px]  bg-[url('../../src/assets/lp.png')]">
-            <div className="drop-shadow-lg px-[100px] pb-[100px] max-w-[1280px] mx-auto bg-[url('../../src/assets/lp.png')]">
-                <div className="lg:flex gap-[24px] items-center">
+        <div className="py-[100px]   bg-[url('../../src/assets/lp.png')]">
+            <div className="drop-shadow-lg lg:px-[100px] px-[10px] lg:pb-[100px] pb-[50px] lg:max-w-[1280px] lg:mx-auto bg-[url('../../src/assets/lp.png')] mx-4">
+                <div className="lg:flex lg:gap-[24px] gap-[10px] items-center">
                     <div>
                         <img className="w-[600px] h-[400px]" src="https://i.ibb.co/QJwjwYv/shape-scene-woman-working-1-fmt-png-alpha-wid-1000.png" alt="" />
                     </div>
                     
-                    <div className=" shrink-0 w-full  max-w-[500px]">
-                        <form className="card-body">
+                    <div className=" shrink-0 w-full  lg:max-w-[500px] ">
+                        <form onSubmit={handleSignIn} className="card-body">
                             <h2 className="text-center text-[30px] font-bold">LogIn</h2>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Email</span>
                                     </label>
-                                    <input type="email" placeholder="email" className="input input-bordered" required />
+                                    <input type="email" name="email" placeholder="email" className="input input-bordered w-full" required />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
-                                    <input type="password" placeholder="password" className="input input-bordered" required />
+                                    <input type="password" placeholder="password" name="password" className="input input-bordered" required />
                                     <label className="label">
                                         <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                     </label>
-                                </div>
+                            </div>
+                            
+                            <div className="form-control">
+                                <label className="label">
+                                    <LoadCanvasTemplate />
+                                </label>
+                                <input type="text" ref={captchaRef} placeholder="type the captcha above" name="captcha" className="input input-bordered" required />
+                                <button onClick={handleValidateCaptcha} className="btn btn-xs mt-4">Validate</button>
+
+                               
+                            </div>
                                 <div className="form-control mt-6">
-                                    <button className="btn  bg-yellow-400 hover:bg-blue-300 text-black">Login</button>
+                                
+                                <input disabled={disabled} type="submit" className="btn  bg-yellow-400 hover:bg-blue-300 text-black" value="Login" />
+                                
                                 </div>
                         </form>
                         <h2 className="text-[20px] text-yellow-700 pb-[25px] font-bold text-center">
                             New here? Create a New Account
+                            <Link to='/signUp'><button className=" text-yellow-900 btn btn-link">SignUp</button></Link>
                         </h2>
                         <div className="text-center">
                             <h2 className="pb-[15px] font-semibold">Or sign in with</h2>

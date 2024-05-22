@@ -28,11 +28,11 @@
 //                 }
 //             </div>
 
-//             <div className="text-center mt-[50px] ">
-//                 <Link to='/orderFood'>
-//                     <button className="btn bg-yellow-400  ">Order Offered Food</button>
-//                 </Link>
-//             </div>
+            // <div className="text-center mt-[50px] ">
+            //     <Link to='/orderFood'>
+            //         <button className="btn bg-yellow-400  ">Order Offered Food</button>
+            //     </Link>
+            // </div>
 
 //         </section>
 //     );
