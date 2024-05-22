@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from "../Providers/AuthProvider";
 import { toast } from "react-toastify";
@@ -12,7 +12,11 @@ const SignIn = () => {
     const { logIn } = useContext(AuthContext);
 
     const captchaRef = useRef(null);
-    const [disabled, setDisabled]  = useState(true)
+    const [disabled, setDisabled] = useState(true)
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     useEffect(() => {
         loadCaptchaEnginge(6); 
@@ -35,6 +39,7 @@ const SignIn = () => {
                 console.log(user)
                 // alert('SignIn Successfully Done.')
                 toast("SignIn Successfully Done.")
+                navigate(from, { replace: true });
             
         })
             .catch((error) => {
