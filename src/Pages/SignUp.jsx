@@ -1,45 +1,106 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Providers/AuthProvider";
+import { useForm } from "react-hook-form";
+
 
 // import lp from'../../src/assets/lp.png'
 const SignUp = () => {
+
+
+    // react hook form step - 01
+    const { register, handleSubmit,  formState: { errors } } = useForm();
+
+    // react hook form step - 02
+    const onSubmit = (data) => {
+        console.log(data)
+        createUser(data.email, data.password)
+            .then((result) => {
+
+                const loggedUser = result.user;
+                console.log(loggedUser)
+
+                alert('SignUp Successfully Done.')
+
+            })
+            .catch((error) => {
+
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                alert(' Wrong SignUp. Please ty again...')
+
+            });
+    };
+
+    // react hook form step - 03
+    // console.log(watch("example")) // watch input value by passing the name of it
+
+
+    const { createUser } = useContext(AuthContext);
+
+   
     return (
-        <div className="py-[100px]   bg-[url('../../src/assets/lp.png')]">
+        <div className="py-[50px]   bg-[url('../../src/assets/lp.png')]">
             <div className="drop-shadow-lg lg:px-[100px] px-[10px] lg:pb-[100px] pb-[50px] lg:max-w-[1280px] lg:mx-auto bg-[url('../../src/assets/lp.png')] mx-4">
-                <div className="lg:flex lg:gap-[24px] gap-[10px] items-center">
+                <div className="lg:flex lg:gap-[24px] gap-[10px] items-center flex-row-reverse">
                     <div>
                         <img className="w-[600px] h-[400px]" src="https://i.ibb.co/QJwjwYv/shape-scene-woman-working-1-fmt-png-alpha-wid-1000.png" alt="" />
                     </div>
 
                     <div className=" shrink-0 w-full  lg:max-w-[500px] ">
-                        <form className="card-body">
+
+                        {/* Replacement normal way */}
+                        {/* onSubmit={handleSignUp} */}
+                        {/* react hook form step - 04 */}
+                        <form  onSubmit={handleSubmit(onSubmit)} className="card-body">
                             <h2 className="text-center text-[30px] font-bold">SignUp</h2>
 
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" placeholder="name" className="input input-bordered w-full" required />
+                                {/* react hook form step - 05 */}
+                                <input type="text" {...register("name", { required: true })} name="name" placeholder="name" className="input input-bordered w-full"  />
+                                {errors.name && <span className="text-red-600 pt-1">Name field is required</span>}
+
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" placeholder="email" className="input input-bordered w-full" required />
+                                <input type="email" {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered w-full" required />
+                                {errors.email && <span className="text-red-600 pt-1">Email field is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered" required />
+                                 {/* react hook form step - 06 */}
+                                <input type="password" {...register("password", { required: true, minLength: 8, maxLength: 16,pattern: /[a-zA-Z0-9!@#$%^&*]/ })} name="password" placeholder="password" className="input input-bordered" />
+                                 {errors.password?.type === "required" && 
+                                    <p role="alert">Password is required.</p>
+                                }
+                                {errors.password?.type === "minLength" && 
+                                    <p role="alert">Password must be 8 characters.</p>
+                                }
+                                {errors.password?.type === "maxLength" && 
+                                    <p role="alert">Password must be less then 16 characters.</p>
+                                }
+                                {errors.password?.type === "pattern" && 
+                                    <p role="alert">Password must have one Uppercase, one lower case, one number and one special characters.</p>
+                                }
                                
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn  bg-yellow-400 hover:bg-blue-300 text-black">SignUp</button>
+                               
+                                <input type="submit" className="btn  bg-yellow-400 hover:bg-blue-300 text-black" value="SignUp" />
+
                             </div>
                         </form>
                         <h2 className="text-[20px] text-yellow-700 pb-[25px] font-bold text-center">
                             Already registered? Go to log in
-                            <Link to='/signIn'><button className=" text-yellow-900 btn btn-link">SignIn</button></Link>
+                          
+                            <Link to='/signIn'><button className=" text-[20px] text-blue-500 pb-[25px] font-bold text-center btn btn-link">SignIn</button></Link>
                         </h2>
                         <div className="text-center">
                             <h2 className="pb-[15px] font-semibold">Or sign up with</h2>

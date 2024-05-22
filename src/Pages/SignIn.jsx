@@ -1,10 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { AuthContext } from "../Providers/AuthProvider";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 // import lp from'../../src/assets/lp.png'
 const SignIn = () => {
+
+    const { logIn } = useContext(AuthContext);
 
     const captchaRef = useRef(null);
     const [disabled, setDisabled]  = useState(true)
@@ -20,7 +25,27 @@ const SignIn = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(email,password)
+        console.log(email, password)
+        
+        logIn(email, password)
+            // Signed in 
+            .then((userCredential) => {
+            
+                const user = userCredential.user;
+                console.log(user)
+                // alert('SignIn Successfully Done.')
+                toast("SignIn Successfully Done.")
+            
+        })
+            .catch((error) => {
+               
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                // alert('Wrong SignIn. Please try again...')
+                toast("Wrong SignIn. Please try again...")
+
+              
+            });
 
     }
 
@@ -37,8 +62,8 @@ const SignIn = () => {
         }
     }
     return (
-        <div className="py-[100px]   bg-[url('../../src/assets/lp.png')]">
-            <div className="drop-shadow-lg lg:px-[100px] px-[10px] lg:pb-[100px] pb-[50px] lg:max-w-[1280px] lg:mx-auto bg-[url('../../src/assets/lp.png')] mx-4">
+        <div className="py-[25px]   bg-[url('../../src/assets/lp.png')]">
+            <div className="drop-shadow-lg lg:px-[100px] px-[10px] lg:pb-[50px] pb-[50px] lg:max-w-[1280px] lg:mx-auto bg-[url('../../src/assets/lp.png')] mx-4">
                 <div className="lg:flex lg:gap-[24px] gap-[10px] items-center">
                     <div>
                         <img className="w-[600px] h-[400px]" src="https://i.ibb.co/QJwjwYv/shape-scene-woman-working-1-fmt-png-alpha-wid-1000.png" alt="" />
@@ -80,7 +105,7 @@ const SignIn = () => {
                         </form>
                         <h2 className="text-[20px] text-yellow-700 pb-[25px] font-bold text-center">
                             New here? Create a New Account
-                            <Link to='/signUp'><button className=" text-yellow-900 btn btn-link">SignUp</button></Link>
+                            <Link to='/signUp'><button className=" text-[20px] text-blue-500 pb-[25px] font-bold text-center btn btn-link">SignUp</button></Link>
                         </h2>
                         <div className="text-center">
                             <h2 className="pb-[15px] font-semibold">Or sign in with</h2>

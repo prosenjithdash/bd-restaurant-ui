@@ -10,6 +10,9 @@ import { Routes } from './Routes/Routes'
 {/* Step - 02 : Helmet provider */ }
 // helmet for dynamic title change
 import {  HelmetProvider } from 'react-helmet-async';
+import AuthProvider from './Providers/AuthProvider'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -17,9 +20,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     {/* Step - 03 : Helmet provider */}
     {/* Step - 04 -> Menu.jsx : Helmet provider */}
     <HelmetProvider>
-      <div className=''>
+    
+      <AuthProvider>
         <RouterProvider router={Routes} />
-      </div>
+      </AuthProvider>
+      <ToastContainer />
+
+ 
     </HelmetProvider>
   </React.StrictMode>,
 )
