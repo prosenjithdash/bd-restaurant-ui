@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useForm } from "react-hook-form";
 
@@ -9,7 +9,11 @@ const SignUp = () => {
 
 
     // react hook form step - 01
-    const { register, handleSubmit,  formState: { errors } } = useForm();
+    const { register, handleSubmit,reset,  formState: { errors } } = useForm();
+
+    const { createUser, updateUserProfile } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     // react hook form step - 02
     const onSubmit = (data) => {
@@ -20,7 +24,18 @@ const SignUp = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser)
 
-                alert('SignUp Successfully Done.')
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        console.log('User profile info updated')
+                        reset();
+                        alert('SignUp Successfully Done.')
+                        navigate('/');
+
+                    })
+                    .catch(errors => {
+                    console.log(errors)
+                })
+
 
             })
             .catch((error) => {
@@ -36,7 +51,6 @@ const SignUp = () => {
     // console.log(watch("example")) // watch input value by passing the name of it
 
 
-    const { createUser } = useContext(AuthContext);
 
    
     return (
@@ -62,6 +76,16 @@ const SignUp = () => {
                                 {/* react hook form step - 05 */}
                                 <input type="text" {...register("name", { required: true })} name="name" placeholder="name" className="input input-bordered w-full"  />
                                 {errors.name && <span className="text-red-600 pt-1">Name field is required</span>}
+
+                            </div>
+
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                {/* react hook form step - 05 */}
+                                <input type="text" {...register("photoURL", { required: true })} placeholder="photoURL" className="input input-bordered w-full" />
+                                {errors.photoURL && <span className="text-red-600 pt-1">Photo URL field is required</span>}
 
                             </div>
                             <div className="form-control">

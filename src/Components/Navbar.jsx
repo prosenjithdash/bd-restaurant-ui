@@ -2,9 +2,14 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import { toast } from "react-toastify";
+// import { HiShoppingCart } from "react-icons/hi";
+import { IoRestaurantOutline } from "react-icons/io5";
+import useCart from "../Hooks.jsx/useCart";
 
 const Navbar = () => {
-    const { user,logOut } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+    {/*  tan stack query step - 06 (Navbar.jsx) */ }
+    const [cart] = useCart();
     console.log(user)
 
     const handleSignOut = () => {
@@ -27,6 +32,7 @@ const Navbar = () => {
         {
             user ?
                 <>
+                    {/* <span>{ user?.displayName}</span> */}
                     <button onClick={handleSignOut} className="ml-2">SignOut</button>
                 </>
                     :
@@ -35,6 +41,16 @@ const Navbar = () => {
  
                 </>
         }
+
+        <li><NavLink to='/g'>
+            <div className="flex gap-2 bg-0 items-center  -mb-4 ml-2">
+                <IoRestaurantOutline className="w-[20px] h-[20px] text-yellow-400 font-extrabold"/>
+                <div className=" bg-black p-1 rounded-xl text-yellow-400 font-extrabold ">
+                    +{cart.length}
+                </div>
+            </div>
+        </NavLink></li>
+
 
 
     </>
