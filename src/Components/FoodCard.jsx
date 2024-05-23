@@ -5,6 +5,7 @@ import useAuth from "../Hooks.jsx/useAuth";
 import Swal from 'sweetalert2'
 // 
 import useAxiosSecure from '../../src/Hooks.jsx/useAxiosSecure';
+import useCart from "../Hooks.jsx/useCart";
 
 const FoodCard = ({ item }) => {
 
@@ -16,13 +17,13 @@ const FoodCard = ({ item }) => {
     
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const [, refetch] = useCart();
     console.log( 'Food Cart User : ',user)
 
-    const handleAddFood = (food) => {
-        console.log(food)
+    const handleAddFood = () => {
         if (user && user.email) {
             //send cart item to the database
-            console.log(user.email, food)
+            // console.log(user.email, food)
             const cartItem = {
                 menuId: _id,
                 email: user.email,
@@ -41,6 +42,8 @@ const FoodCard = ({ item }) => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        // refetch cart to update the cart items count
+                        refetch();
                     }
             })
         }
@@ -75,7 +78,7 @@ const FoodCard = ({ item }) => {
                 <p>{recipe} </p>
 
                 <div className="card-actions">
-                    <button onClick={()=>handleAddFood(item)} className="btn border-b-4 border-yellow-400 hover:bg-yellow-400 hover:border-blue-400 bg-white border-l-0 border-r-0 border-t-0">Add Food</button>
+                    <button onClick={handleAddFood} className="btn border-b-4 border-yellow-400 hover:bg-yellow-400 hover:border-blue-400 bg-white border-l-0 border-r-0 border-t-0">Add Food</button>
                 </div>
 
             </div>
