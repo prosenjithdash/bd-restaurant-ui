@@ -10,7 +10,7 @@ import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
 import Dashboard from "../Layouts/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
-
+import PrivetRoute from'../Routes/PrivetRoute'
 export const Routes = createBrowserRouter([
     {
         path: "/",
@@ -41,7 +41,7 @@ export const Routes = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <Dashboard />,
+        element: <PrivetRoute><Dashboard/></PrivetRoute>,
         errorElement: <Error />,
         children:[
             {
