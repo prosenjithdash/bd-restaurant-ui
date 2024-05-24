@@ -42,7 +42,7 @@ const Navbar = () => {
                 </>
         }
 
-        <li><NavLink to='/g'>
+        <li><NavLink to='/dashboard/cart'>
             <div className="flex gap-2 bg-0 items-center  -mb-4 ml-2">
                 <IoRestaurantOutline className="w-[20px] h-[20px] text-yellow-400 font-extrabold"/>
                 <div className=" bg-black p-1 rounded-xl text-yellow-400 font-extrabold ">
