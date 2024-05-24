@@ -1,11 +1,12 @@
 import { BsCartPlusFill } from "react-icons/bs";
-import { FaHome } from "react-icons/fa";
+import { FaBook, FaHome, FaUsers } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoRestaurantSharp } from "react-icons/io5";
-import { MdContactPhone, MdPayments, MdRateReview } from "react-icons/md";
+import { MdContactPhone, MdPayments, MdRateReview, MdRestaurant } from "react-icons/md";
 // import { RiMenuUnfoldFill } from "react-icons/ri";
 import { SlCalender } from "react-icons/sl";
 import { TbBrandBooking } from "react-icons/tb";
+import { TfiMenuAlt } from "react-icons/tfi";
 import { NavLink, Outlet } from "react-router-dom";
 // import useCart from "../Hooks.jsx/useCart";
 
@@ -24,25 +25,51 @@ const Dashboard = () => {
 
                 {/* For Normal Users */}
                 <ul className="menu p-4 text-white">
-                    <li className="text-black"><NavLink to='/dashboard/userHome'>
-                        <FaHome />USER HOME</NavLink>
-                    </li>
-                    <li className="text-black"><NavLink to='/dashboard/reservation'>
-                        <SlCalender  />RESERVATION  </NavLink>
-                    </li>
-                    <li className="text-black"><NavLink to='/dashboard/paymentHistory'>
-                        <MdPayments />PAYMENT HISTORY</NavLink>
-                    </li>
-                    <li className=" text-black"><NavLink to='/dashboard/cart'>
-                        <BsCartPlusFill />MY CART</NavLink>
-                    </li>
-                    <li className="text-black"><NavLink to='/dashboard/review'>
-                        <MdRateReview />ADD REVIEW</NavLink>
-                    </li>
-                    <li className="text-black"><NavLink to='/dashboard/booking'>
-                        <TbBrandBooking />MY BOOKING</NavLink>
-                    </li>
 
+                    {
+                        isAdmin ?
+                            <>
+                                <li className="text-black"><NavLink to='/dashboard/adminHome'>
+                                    <FaHome />ADMIN HOME</NavLink>
+                                </li>
+                                <li className="text-black"><NavLink to='/dashboard/addItems'>
+                                    <MdRestaurant />ADD ITEMS</NavLink>
+                                </li>
+                                <li className="text-black"><NavLink to='/dashboard/manageItems'>
+                                    <TfiMenuAlt />MANAGE ITEMS </NavLink>
+                                </li>
+                                <li className=" text-black"><NavLink to='/dashboard/bookings'>
+                                    <FaBook />MANAGE BOOKINGS</NavLink>
+                                </li>
+                                <li className="text-black"><NavLink to='/dashboard/users'>
+                                    <FaUsers />ALL USERS</NavLink>
+                                </li>
+                               
+
+                            </>
+                                :
+                            <>
+                                <li className="text-black"><NavLink to='/dashboard/userHome'>
+                                    <FaHome />USER HOME</NavLink>
+                                </li>
+                                <li className="text-black"><NavLink to='/dashboard/reservation'>
+                                    <SlCalender />RESERVATION  </NavLink>
+                                </li>
+                                <li className="text-black"><NavLink to='/dashboard/paymentHistory'>
+                                    <MdPayments />PAYMENT HISTORY</NavLink>
+                                </li>
+                                <li className=" text-black"><NavLink to='/dashboard/cart'>
+                                    <BsCartPlusFill />MY CART</NavLink>
+                                </li>
+                                <li className="text-black"><NavLink to='/dashboard/review'>
+                                    <MdRateReview />ADD REVIEW</NavLink>
+                                </li>
+                                <li className="text-black"><NavLink to='/dashboard/booking'>
+                                    <TbBrandBooking />MY BOOKING</NavLink>
+                                </li>
+   
+                            </>
+                   }
                     {/* Shared nav links */}
 
                     <div className="divider"></div>

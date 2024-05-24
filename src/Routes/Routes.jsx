@@ -11,6 +11,7 @@ import SignUp from "../Pages/SignUp";
 import Dashboard from "../Layouts/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
 import PrivetRoute from'../Routes/PrivetRoute'
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 export const Routes = createBrowserRouter([
     {
         path: "/",
@@ -47,6 +48,12 @@ export const Routes = createBrowserRouter([
             {
                 path: 'cart',
                 element:<Cart/>
+
+            },
+            // admin routes
+            {
+                path: 'users',
+                element: <AllUsers />
 
             }
         ]
