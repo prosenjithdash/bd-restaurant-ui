@@ -8,13 +8,14 @@ import { SlCalender } from "react-icons/sl";
 import { TbBrandBooking } from "react-icons/tb";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks.jsx/useAdmin";
 // import useCart from "../Hooks.jsx/useCart";
 
 const Dashboard = () => {
     // const [cart] = useCart();
 
     // TODO: getd isAdmin value from the database
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="flex">
