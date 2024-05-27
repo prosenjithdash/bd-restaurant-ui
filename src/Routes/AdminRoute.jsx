@@ -4,7 +4,7 @@ import useAuth from "../Hooks.jsx/useAuth";
 
 const AdminRoute = ({children}) => {
 
-    const [user, loading] = useAuth();
+    const { user, loading } = useAuth();
     const [isAdmin, isAdminLoading] = useAdmin();
     const location = useLocation();
 
@@ -15,7 +15,7 @@ const AdminRoute = ({children}) => {
     if (user && isAdmin) {
         return children;
     }
-    return <Navigate state={{ from: location }} to='/signIn' replace></Navigate>
+    return <Navigate to='/' state={{ from: location }}  replace></Navigate>
 };
 
 export default AdminRoute;
