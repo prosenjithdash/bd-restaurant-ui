@@ -1,16 +1,18 @@
 import { MdDeleteForever } from "react-icons/md";
 import SectionTitle from "../../../Components/SectionTitle";
 import useMenu from "../../../Hooks.jsx/useMenu";
-import { FaUpRightAndDownLeftFromCenter } from "react-icons/fa6";
 import { TbEdit } from "react-icons/tb";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks.jsx/useAxiosSecure";
 
 const ManageItems = () => {
-    const [menu, loading] = useMenu();
+    const [menu, , refetch] = useMenu();
 
-    const handleDelete = (id) => {
-        console.log(id)
+    const axiosSecure = useAxiosSecure();
+
+    const handleDelete =  (menu) => {
+        console.log('Delete menu: ',menu)
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -19,22 +21,21 @@ const ManageItems = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/carts/${id}`)
-                    .then(res => {
-                        console.log(res)
+                const res = await axiosSecure.delete(`/menu/${menu._id}`)
+                    
                         if (res.data.deletedCount > 0) {
                             refetch();
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                text: ` ${menu.name} has been deleted.`,
                                 icon: "success"
                             });
                         }
 
 
-                    })
+         
 
             }
         });
@@ -93,7 +94,7 @@ const ManageItems = () => {
 
                                             <td>
                                                 {/* onClick={() => handleDelete(item._id)} */}
-                                                <Link to='/update'>
+                                                <Link to={`/dashboard/updateMenu/${item._id}`}>
                                                     <button className="btn btn-ghost text-white text-[18px] bg-yellow-500"><TbEdit />
                                                     </button>
                                                 </Link>
@@ -101,7 +102,7 @@ const ManageItems = () => {
 
                                             <td>
                                                 
-                                                <button onClick={() => handleDelete(menu._id)}  className="btn btn-ghost text-white text-[18px] bg-red-600"><MdDeleteForever />
+                                                <button onClick={()=> handleDelete(item)}  className="btn btn-ghost text-white text-[18px] bg-red-600"><MdDeleteForever />
                                                 </button>
                                             </td>
                                         </tr>)

@@ -3,6 +3,7 @@ import SectionTitle from "../../../Components/SectionTitle";
 import useCart from "../../../Hooks.jsx/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks.jsx/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
     const [cart, refetch] = useCart();
@@ -49,7 +50,11 @@ const Cart = () => {
                     <div className="flex justify-between text-[20px] font-bold uppercase items-center">
                         <p>Total orders: {cart.length}</p>
                         <p>total price: {totalPrice}</p>
-                        <button className="bg-yellow-500 p-2 rounded-xl">Pay</button>
+                        {
+                            cart.length ? <Link to='/dashboard/payment'>
+                                <button disabled={!cart.length} className="bg-yellow-500 p-2 rounded-xl">Pay</button>
+                            </Link> : <button disabled className="bg-gray-200 p-2 rounded-xl text-gray-400">Pay</button>
+                        }
                     </div>
                     <div>
                         <div className="overflow-x-auto mt-4">

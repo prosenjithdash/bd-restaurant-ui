@@ -1,20 +1,32 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../Hooks.jsx/useAxiosPublic";
 
 const useMenu = () => {
 
-    const [menu, setMenu] = useState([]);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        fetch('http://localhost:8000/menu')
-            .then(res => res.json())
-            .then(data => {
-                setMenu(data)
-                setLoading(true)
-        })
-    }, [])
-    
+    // const [menu, setMenu] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    // tan stack query
+    {/*  tan stack query step - 05 (useCart.jsx) */ }
+    {/*  tan stack query step - 06 (Navbar.jsx) */ }
 
-    return [menu,loading]
+    const axiosPublic = useAxiosPublic();
+
+    const { data: menu = [], isPending: loading, refetch} = useQuery({
+        queryKey: ['menu'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/menu')
+            return res.data;
+        }
+    })
+    return [menu, loading, refetch]
+    
+   
 };
 
 export default useMenu;
+
+
+
+
+
+
