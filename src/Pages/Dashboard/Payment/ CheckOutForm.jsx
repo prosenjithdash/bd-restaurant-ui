@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import useCart from "../../../Hooks.jsx/useCart";
 import useAxiosSecure from "../../../Hooks.jsx/useAxiosSecure";
 import useAuth from "../../../Hooks.jsx/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = () => {
     const [errorM, setErrorM] = useState('')
@@ -12,15 +14,18 @@ const CheckOutForm = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const elements = useElements();  
-    const [cart] = useCart();
+    const [cart, refetch] = useCart();
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+    const navigate = useNavigate();
 
     useEffect(() => {
-     axiosSecure.post('/create-payment-intent', {price: totalPrice})
-            .then((res) => {
-                console.log(res.data.clientSecret)
-                setClientSecret(res.data.clientSecret);
-            })
+        if (totalPrice > 0) {
+            axiosSecure.post('/create-payment-intent', { price: totalPrice })
+                .then((res) => {
+                    console.log(res.data.clientSecret)
+                    setClientSecret(res.data.clientSecret);
+                })
+    }
            
     }, [axiosSecure,totalPrice]);
 
@@ -68,12 +73,38 @@ const CheckOutForm = () => {
             if (paymentIntent.status === 'succeeded') {
                 console.log('transaction id ', paymentIntent.id)
                 setTransactionId(paymentIntent.id)
+
+                // now save the payment in the database
+                const payment  = {
+                    email: user.email,
+                    price: totalPrice,
+                    transactionId: paymentIntent.id,
+                    date: new Date(), // utc date convert. use moment js to
+                    cartIds: cart.map(item => item._id),
+                    menuItemIds: cart.map(item => item.menuId),
+                    status: 'pending'
+                }
+                const res = await axiosSecure.post('/payment', payment)
+                console.log('Payment saved', res.data);
+                refetch();
+                if (res.data?.paymentResult?.insertedId) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Thanks for payment",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate('/dashboard/paymentHistory')
+
+                }
+                
             }
         }
     }
     return (
-        <form onSubmit={handleSubmit} className="m-10">
-            <CardElement
+        <form onSubmit={handleSubmit} className="mx-[200px] bg-gray-100 p-20 rounded-lg my-[100px]">
+            <CardElement 
                 options={{
                     style: {
                         base: {

@@ -5,11 +5,13 @@ import { toast } from "react-toastify";
 // import { HiShoppingCart } from "react-icons/hi";
 import { IoRestaurantOutline } from "react-icons/io5";
 import useCart from "../Hooks.jsx/useCart";
+import useAdmin from "../Hooks.jsx/useAdmin";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     {/*  tan stack query step - 06 (Navbar.jsx) */ }
     const [cart] = useCart();
+    const [isAdmin] = useAdmin();
     console.log(user)
 
     const handleSignOut = () => {
@@ -28,6 +30,15 @@ const Navbar = () => {
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/menu'>Menu</NavLink></li>
         <li><NavLink to='/orderFood/pizza'>Order Food</NavLink></li>
+
+        {
+            user && isAdmin && <li><NavLink to='/dashboard/adminHome'>Dashboard</NavLink></li>
+         
+        }
+        {
+            user && !isAdmin && <li><NavLink to='/dashboard/userHome'>Dashboard</NavLink></li>
+
+        }
         {/* <li><NavLink to='/signUp'>SignUp</NavLink></li> */}
         {
             user ?
