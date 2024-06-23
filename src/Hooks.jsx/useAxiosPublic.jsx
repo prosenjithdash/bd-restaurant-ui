@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-    baseURL: 'http://localhost:8000'
+    baseURL: 'https://bd-restaurant-server-weld.vercel.app'
 })
 const useAxiosPublic = () => {
     return axiosPublic

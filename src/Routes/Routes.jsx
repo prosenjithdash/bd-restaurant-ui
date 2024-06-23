@@ -10,7 +10,7 @@ import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
 import Dashboard from "../Layouts/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
-import PrivetRoute from'../Routes/PrivetRoute'
+import PrivetRoute from '../Routes/PrivetRoute'
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AddItems from "../Pages/Dashboard/AddItems/AddItems";
 import AdminRoute from "./AdminRoute";
@@ -50,35 +50,35 @@ export const Routes = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <PrivetRoute><Dashboard/></PrivetRoute>,
+        element: <PrivetRoute><Dashboard /></PrivetRoute>,
         errorElement: <Error />,
         children: [
-        
+
             // normal user routes
             {
                 path: 'userHome',
-                element:<UserHome/>
+                element: <UserHome />
             },
             {
                 path: 'cart',
-                element:<Cart/>
+                element: <Cart />
 
             },
             {
                 path: 'payment',
-                element:<Payment/>
+                element: <Payment />
             },
             {
                 path: 'paymentHistory',
-                element:<PaymentHistory/>
+                element: <PaymentHistory />
             },
 
 
             // admin only routes
             {
                 path: 'adminHome',
-                element:<AdminHome/>
-                
+                element: <AdminHome />
+
             },
             {
                 path: 'addItems',
@@ -93,7 +93,7 @@ export const Routes = createBrowserRouter([
             {
                 path: 'updateMenu/:id',
                 element: <AdminRoute><UpdateMenu /></AdminRoute>,
-                loader:({ params }) => fetch(`http://localhost:8000/menu/${params.id}`)
+                loader: ({ params }) => fetch(`https://bd-restaurant-server-weld.vercel.app/menu/${params.id}`)
             },
 
             {

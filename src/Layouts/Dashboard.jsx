@@ -27,6 +27,9 @@ const Dashboard = () => {
                 {/* For Normal Users */}
                 <ul className="menu p-4 text-white">
 
+                    {/* https://github.com/probirghosh45/tourist-guide
+probirghoosh.ph@gmail.com */}
+                    
                     {
                         isAdmin ?
                             <>

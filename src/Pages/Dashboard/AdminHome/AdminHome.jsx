@@ -33,7 +33,7 @@ const AdminHome = () => {
                 <div className="flex  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white items-center gap-[24px] rounded-lg p-[30px]" >
                     <div><IoWallet className="w-[50px] h-[50px]" /></div>
                     <div>
-                        <h2 className="text-[40px] font-bold">{stats.revenue}</h2>
+                        <h2 className="text-[40px] font-bold">{stats?.revenue}</h2>
                         <p className="text-[24px]">Revenue</p>
                     </div>
                 </div>
@@ -41,7 +41,7 @@ const AdminHome = () => {
                 <div className="flex  bg-gradient-to-r from-yellow-500 via-yellow-600 to-pink-500 text-white items-center gap-[24px] rounded-lg p-[30px]" >
                     <div><FaUsers className="w-[50px] h-[50px]" /></div>
                     <div>
-                        <h2 className="text-[40px] font-bold">{stats.users}</h2>
+                        <h2 className="text-[40px] font-bold">{stats?.users}</h2>
                         <p className="text-[24px]">Customers</p>
                     </div>
                 </div>
@@ -49,15 +49,17 @@ const AdminHome = () => {
                 <div className="flex  bg-gradient-to-r from-cyan-500 to-purple-500 text-white items-center gap-[24px] rounded-lg p-[30px]" >
                     <div><BiRestaurant className="w-[50px] h-[50px]" /></div>
                     <div>
-                        <h2 className="text-[40px] font-bold">{stats.menuItems}</h2>
+                        <h2 className="text-[40px] font-bold">{stats?.menuItems}</h2>
                         <p className="text-[24px]">Products</p>
                     </div>
                 </div>
 
+                blog, ai ,e-com 10 oct 
+
                 <div className="flex  bg-gradient-to-r from-emerald-500  from-10% via-sky-400 via-30% to-pink-500  text-white items-center gap-[24px] rounded-lg p-[30px]" >
                     <div><GrDeliver className="w-[50px] h-[50px]" /></div>
                     <div>
-                        <h2 className="text-[40px] font-bold">{stats.orders}</h2>
+                        <h2 className="text-[40px] font-bold">{stats?.orders}</h2>
                         <p className="text-[24px]">Orders</p>
                     </div>
                 </div>
